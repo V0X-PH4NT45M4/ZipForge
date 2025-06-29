@@ -1,3 +1,0 @@
-/home/a5hu705h/ZipForge/build/CMakeFiles/MyProject.dir
-/home/a5hu705h/ZipForge/build/CMakeFiles/edit_cache.dir
-/home/a5hu705h/ZipForge/build/CMakeFiles/rebuild_cache.dir

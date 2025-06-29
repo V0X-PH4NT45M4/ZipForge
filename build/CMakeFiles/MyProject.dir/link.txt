@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/MyProject.dir/src/algorithms/huffman/compressor.cpp.o CMakeFiles/MyProject.dir/src/algorithms/huffman/decompressor.cpp.o CMakeFiles/MyProject.dir/src/main.cpp.o -o MyProject 
