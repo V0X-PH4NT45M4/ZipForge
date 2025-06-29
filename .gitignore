@@ -34,4 +34,8 @@
 # vim related files 
 *.un~
 *.swp
-**/.cache/
+.cache/*
+
+# Ignore cmake related stuff
+build/*
+
