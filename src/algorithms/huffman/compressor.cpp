@@ -8,9 +8,6 @@ namespace huffman {
 	Node::Node (int32_t fr, int32_t c) : freq(fr), ch(c), left(-1), right(-1) {}
 	Node::Node (int32_t fr, ssize_t l, ssize_t r) : freq(fr), ch(-1), left(l), right(l) {}
 	bool Node::operator<(Node& other) {
-		if (other.ch == -1 && ch >= 0) return true; // we want to keep the internal nodes to the left
-		if (ch == -1 && other.ch >= 0) return false; 
-
 		if (freq == other.freq) return ch < other.ch; 
 		return freq < other.freq; 
 	}
@@ -25,14 +22,10 @@ namespace huffman {
 		int nextFillIndex = NUM_SYMBOLS; 
 		
 		while (nodes[bestLeafNode].freq == 0) bestLeafNode++; 
-		std::cout << "hey\n"; 	
 		int32_t sum = 0; 
 		for (int i = bestLeafNode; i < NUM_SYMBOLS; i++) {
 			sum += nodes[i].freq;
-			std::cout << nodes[i].freq << ' '; 
 		}
-		std::cout << '\n'; 
-		std::cout << sum << '\n'; 
 	
 		auto mergeNodes = [&] (ssize_t left, ssize_t right) -> void {
 			nodes[nextFillIndex].freq = nodes[left].freq + nodes[right].freq; 
@@ -54,8 +47,6 @@ namespace huffman {
 			// we will either merge the bestLeafNode and the next bestLeafNode 
 			// or we merge the bestLeafNode and bestInternalNode 
 			// or we merge the bestInternalNode and next bestInternalNode 
-			std::cout << nodes[nextFillIndex - 1].freq << ' ' << nodes[nextFillIndex - 1].left << ' '
-			       	<< nodes[nextFillIndex - 1].right << '\n'; 		
 			
 			if (bestLeafNode >= NUM_SYMBOLS) {
 				// we only have internal nodes to compare 
@@ -103,7 +94,7 @@ namespace huffman {
 			enumerateHuffmanCodes(nodes, nodes[node.right], codes, code * 2 + 1, depth + 1); 
 		} else {
 			codes[node.ch] = {.bitSize = depth, .integerRepr = code}; 
-			std::cout << static_cast<char>(node.ch) << " code: " << code << " bitSize: " << depth << ' ' << node.freq << '\n'; 
+			//std::cout << static_cast<char>(node.ch) << " code: " << code << " bitSize: " << depth << ' ' << node.freq << '\n'; 
 		}
 	}
 	
@@ -123,9 +114,6 @@ namespace huffman {
 			
 			// size of the current code will be 
 			ssize_t size = currentCode.bitSize; 
-			
-			std::cout << currentChar << ':' << codes[currentChar].integerRepr << "|" << codes[currentChar].bitSize << ' ';  
-
 			if (size > currentSize) {
 				// calculate remainingsize which will be added to next byte, and 
 
@@ -170,10 +158,9 @@ namespace huffman {
 		
 		char ch; 
 		while (inputFile.get(ch)) {
-			std::cout << ch;  
 			nodes[static_cast<ssize_t>(ch)].freq++;
 		} 		
-		std::sort(nodes.begin(), nodes.end()); 
+		std::sort(nodes.begin(), nodes.begin() + NUM_SYMBOLS); 
 		auto rootLoc = generateHuffmanTree(nodes);
 
 		if (rootLoc == NUM_SYMBOLS - 1) {
@@ -207,7 +194,6 @@ namespace huffman {
 		size_t size = numBytes;
     		outputFile.write(reinterpret_cast<const char*>(&size), sizeof(size_t));
 
-		std::cout << wasted << ' ' << numBytes << totalBits <<'\n'; 
 
 		const char* startPtr = reinterpret_cast<const char*>(std::addressof(*begin));
 		outputFile.write(startPtr, numBytes); 

@@ -1,9 +1,9 @@
 #include <core-algorithms.hpp>
 
 int main (int argc, char* argv[]) {
-	std::string input = "../tests/test2/input.txt"; 
-	std::string output = "../tests/test2/output.txt";
-        std::string decode = "../tests/test2/decoded.txt"; 	
+	std::string input = "../tests/test1/input.txt"; 
+	std::string output = "../tests/test1/output.txt";
+        std::string decode = "../tests/test1/decoded.txt"; 	
 	huffman::compressor(input, output); 
 	std::cout << "wow wello from wain\n"; 
 	huffman::decompressor(output, decode); 

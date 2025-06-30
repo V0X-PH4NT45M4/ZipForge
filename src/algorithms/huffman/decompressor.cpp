@@ -16,13 +16,12 @@ namespace huffman {
 		size_t wasted, numBytes; 
 	        inputFile.read(reinterpret_cast<char*>(&wasted), sizeof(size_t)); 
 		inputFile.read(reinterpret_cast<char*>(&numBytes), sizeof(size_t)); 
-
 		std::vector<Node> huffmanTree(numBytes / sizeof(Node));
 		inputFile.read(reinterpret_cast<char*>(huffmanTree.data()), numBytes); 
 
-		for (auto&node: huffmanTree) {
-			std::cout << node.ch << ' ' << node.freq << ' ' << node.left << ' ' << node.right << '\n'; 
-		}
+	        //	for (auto&node: huffmanTree) {
+	        //		std::cout << node.ch << ' ' << node.freq << ' ' << node.left << ' ' << node.right << '\n'; 
+	        //	}
 
 		int numNodes = huffmanTree.size(); 
 		int leafNodes = (numNodes + 1) / 2; // numNodes = 2 * leafNodes - 1 for a full binary tree (huffman tree is full)
